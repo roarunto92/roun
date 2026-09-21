@@ -53,7 +53,7 @@
             font-size: 12px;
             font-weight: bold;
         }
-        .link-btn:hover { background-color: #1e3d6b; }
+        .link-btn:hover { opacity: 0.85; }
     </style>
 </head>
 <body>
@@ -93,15 +93,16 @@
                     const cols = rows[i];
                     if (cols.length < 6) continue;
 
-                    const num = cols[0] ? cols[0].trim() : '';        // 번호
-                    const type = cols[1] ? cols[1].trim() : '';      // 구분 (일정 또는 기록)
-                    const date = cols[2] ? cols[2].trim() : '';      // 날짜
-                    const opponent = cols[3] ? cols[3].trim() : '';  // 상대팀
-                    const result = cols[4] ? cols[4].trim() : '';    // 결과
-                    const memo = cols[5] ? cols[5].trim() : '';      // 메모
-                    const record = cols[6] ? cols[6].trim() : '';    // 세부기록
-                    const media = cols[7] ? cols[7].trim() : '';     // 미디어 링크
-                    const highlight = cols[8] ? cols[8].trim() : ''; // 하이라이트 링크
+                    const num = cols[0] ? cols[0].trim() : '';          // 번호
+                    const type = cols[1] ? cols[1].trim() : '';        // 구분 (일정 또는 기록)
+                    const date = cols[2] ? cols[2].trim() : '';        // 날짜
+                    const opponent = cols[3] ? cols[3].trim() : '';    // 상대팀
+                    const result = cols[4] ? cols[4].trim() : '';      // 결과
+                    const memo = cols[5] ? cols[5].trim() : '';        // 메모
+                    const record = cols[6] ? cols[6].trim() : '';      // 세부기록
+                    const interview = cols[7] ? cols[7].trim() : '';   // 인터뷰 링크
+                    const highlight = cols[8] ? cols[8].trim() : '';   // 하이라이트 링크
+                    const gameLog = cols[9] ? cols[9].trim() : '';     // 경기기록 링크
 
                     const cardContent = `
                         <div class="card">
@@ -110,8 +111,9 @@
                             <div class="record">${result} <span style="font-weight: normal; color: #555;">(${memo})</span></div>
                             ${record ? `<div class="extra-info">세부기록: ${record}</div>` : ''}
                             <div>
-                                ${media && media !== '-' ? `<a href="${media}" target="_blank" class="link-btn">📷 미디어보기</a>` : ''}
+                                ${interview && interview !== '-' ? `<a href="${interview}" target="_blank" class="link-btn" style="background-color: #2b579a;">🎤 인터뷰</a>` : ''}
                                 ${highlight && highlight !== '-' ? `<a href="${highlight}" target="_blank" class="link-btn" style="background-color: #d9534f;">🎬 하이라이트</a>` : ''}
+                                ${gameLog && gameLog !== '-' ? `<a href="${gameLog}" target="_blank" class="link-btn" style="background-color: #5cb85c;">📝 경기기록</a>` : ''}
                             </div>
                         </div>
                     `;
