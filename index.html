@@ -6,10 +6,10 @@
     <title>이로운 선발 등판 기록</title>
     <style>
         :root {
-            --primary-color: #c92a2a; /* 강렬하고 세련된 야구팀 레드 컬러 */
+            --primary-color: #c92a2a; /* 팀 컬러 포인트 레드 */
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
-            --text-main: #212529;
+            --text-main: #111111 !important; /* 강제 검정색 적용 */
             --text-sub: #6c757d;
         }
 
@@ -31,7 +31,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
-        /* 헤더 스타일 */
+        /* 헤더 스타일 (강제 검정색) */
         .header {
             text-align: center;
             margin-bottom: 35px;
@@ -39,9 +39,9 @@
             padding-bottom: 20px;
         }
         h1 { 
-            font-size: 22px; 
-            font-weight: 800; 
-            color: var(--primary-color); 
+            font-size: 22px !important; 
+            font-weight: 800 !important; 
+            color: #111111 !important; /* 무조건 검정색 */
             margin: 0 0 6px 0; 
             letter-spacing: -0.5px;
         }
@@ -51,12 +51,12 @@
             font-weight: 500;
         }
         
-        /* 섹션 타이틀 */
+        /* 섹션 타이틀 (강제 검정색) */
         section { margin-bottom: 30px; }
         h2 { 
-            font-size: 16px; 
-            font-weight: 700; 
-            color: var(--primary-color); 
+            font-size: 16px !important; 
+            font-weight: 700 !important; 
+            color: #111111 !important; /* 무조건 검정색 */
             display: flex;
             align-items: center;
             gap: 6px;
@@ -228,9 +228,9 @@
                             </div>
                             ${record ? `<div class="extra-info">📋 세부기록: ${record}</div>` : ''}
                             <div class="btn-group">
-                                ${interview && interview !== '-' ? `<a href="${interview}" target="_blank" class="link-btn" style="background-color: #343a40;">🎤 인터뷰</a>` : ''}
-                                ${highlight && highlight !== '-' ? `<a href="${highlight}" target="_blank" class="link-btn" style="background-color: #c92a2a;">🎬 하이라이트</a>` : ''}
-                                ${gameLog && gameLog !== '-' ? `<a href="${gameLog}" target="_blank" class="link-btn" style="background-color: #2b8a3e;">📝 경기기록</a>` : ''}
+                                ${interview && interview !== '-' ? `<a href="${interview}" target="_blank" class="link-btn" style="background-color: #343a40;">🎙️ 인터뷰</a>` : ''}
+                                ${highlight && highlight !== '-' ? `<a href="${highlight}" target="_blank" class="link-btn" style="background-color: #c92a2a;">⚾ 하이라이트</a>` : ''}
+                                ${gameLog && gameLog !== '-' ? `<a href="${gameLog}" target="_blank" class="link-btn" style="background-color: #2b8a3e;">📊 경기기록</a>` : ''}
                             </div>
                         </div>
                     `;
