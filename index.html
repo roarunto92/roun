@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이로운 선발 등판 기록</title>
+    <title>이로운 등판 기록</title>
     <style>
         :root {
-            --primary-color: #c92a2a;
+            --primary-color: #c92a2a; /* 팀 컬러 포인트 레드 */
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --text-main: #111111 !important;
@@ -31,6 +31,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
+        /* 프로필 이미지 스타일 */
         .profile-container {
             text-align: center;
             margin-bottom: 15px;
@@ -43,11 +44,11 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
+        /* 헤더 스타일 */
         .header {
             text-align: center;
-            margin-bottom: 35px;
-            border-bottom: 2px solid #f1f3f5;
-            padding-bottom: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
         }
         h1 { 
             font-size: 22px !important; 
@@ -60,8 +61,39 @@
             color: var(--text-sub); 
             font-size: 13px; 
             font-weight: 500;
+            margin-bottom: 15px;
         }
         
+        /* 🧭 네비게이션 메뉴 버튼 바 */
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+        .nav-btn {
+            padding: 7px 14px;
+            background-color: #f1f3f5;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover {
+            background-color: #e9ecef;
+            color: #111;
+        }
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 섹션 타이틀 */
         section { margin-bottom: 30px; }
         h2 { 
             font-size: 16px !important; 
@@ -73,6 +105,7 @@
             margin-bottom: 14px; 
         }
         
+        /* 기록 카드 스타일 */
         .card {
             background: #ffffff;
             padding: 16px 18px;
@@ -157,8 +190,7 @@
             border-radius: 6px;
             font-size: 11px;
             font-weight: 600;
-            cursor: pointer;
-            border: none;
+            transition: opacity 0.2s;
         }
         .link-btn:hover { opacity: 0.85; }
 
@@ -175,20 +207,31 @@
 <body>
 
     <div class="container">
+        <!-- 📸 선수 프로필 사진 영역 -->
         <div class="profile-container">
-            <img src=https://roarunto92.github.io/roun_baseball001/260909_2nd.jpg?w=150" alt="선수 프로필" class="profile-img">
+            <img src="https://roarunto92.github.io/roun_baseball001/260909_2nd.jpg?w=150" alt="선수 프로필" class="profile-img">
         </div>
 
         <div class="header">
-            <h1>이로운 선발 등판 기록</h1>
-            <div class="subtitle">2026.09.03 ~ ing</div>
+            <h1>이로운 등판 기록</h1>
+            <div class="subtitle">2026.09.03 ~ ING</div>
+
+            <!-- 🧭 네비게이션 메뉴 바 -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn active">🏠 홈·기록</a>
+                <a href="season2025.html" class="nav-btn">📅 2025시즌</a>
+                <a href="photos.html" class="nav-btn">📷 사진첩</a>
+                <a href="notice.html" class="nav-btn">📢 공지사항</a>
+            </nav>
         </div>
 
+        <!-- 다음 등판 일정 섹션 -->
         <section>
-            <h2>📅 다가오는 일정</h2>
+            <h2>📅 다음 등판 일정</h2>
             <div id="schedule-list"><div class="empty-text">데이터를 불러오는 중...</div></div>
         </section>
 
+        <!-- 지난 등판 기록 섹션 -->
         <section>
             <h2>📊 지난 등판 기록</h2>
             <div id="record-list"><div class="empty-text">데이터를 불러오는 중...</div></div>
@@ -199,6 +242,7 @@
         // ⚠️ 본인의 구글 시트 CSV 웹 게시 링크를 여기에 꼭 넣어주세요!
         const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=0&single=true&output=csv';
 
+        // CSV 데이터를 안전하게 파싱하는 함수 (링크 깨짐 방지)
         function parseCSV(text) {
             let lines = [];
             let row = [''];
@@ -245,19 +289,16 @@
                     const cols = rows[i];
                     if (cols.length < 6) continue;
 
-                    const num = cols[0] ? cols[0].trim() : '';
-                    const type = cols[1] ? cols[1].trim() : '';
-                    const date = cols[2] ? cols[2].trim() : '';
-                    const opponent = cols[3] ? cols[3].trim() : '';
-                    const result = cols[4] ? cols[4].trim() : '';
-                    const memo = cols[5] ? cols[5].trim() : '';
-                    const record = cols[6] ? cols[6].trim() : '';
-                    const interview = cols[7] ? cols[7].trim() : '';
-                    const highlight = cols[8] ? cols[8].trim() : '';
-                    const gameLog = cols[9] ? cols[9].trim() : '';
-
-                    // 링크가 http나 https로 시작하는지 검사하는 안전 함수
-                    const isValidUrl = (url) => url && (url.startsWith('http://') || url.startsWith('https://'));
+                    const num = cols[0] ? cols[0].trim() : '';          // 번호 (A열)
+                    const type = cols[1] ? cols[1].trim() : '';        // 구분 (B열)
+                    const date = cols[2] ? cols[2].trim() : '';        // 날짜 (C열)
+                    const opponent = cols[3] ? cols[3].trim() : '';    // 상대팀 (D열)
+                    const result = cols[4] ? cols[4].trim() : '';      // 결과 (E열)
+                    const memo = cols[5] ? cols[5].trim() : '';        // 메모 (F열)
+                    const record = cols[6] ? cols[6].trim() : '';      // 세부기록 (G열)
+                    const interview = cols[7] ? cols[7].trim() : '';   // 인터뷰 링크 (H열)
+                    const highlight = cols[8] ? cols[8].trim() : '';   // 하이라이트 링크 (I열)
+                    const gameLog = cols[9] ? cols[9].trim() : '';     // 경기기록 링크 (J열)
 
                     const cardContent = `
                         <div class="card">
@@ -273,9 +314,9 @@
                             </div>
                             ${record ? `<div class="extra-info">📋 세부기록: ${record}</div>` : ''}
                             <div class="btn-group">
-                                ${isValidUrl(interview) ? `<a href="${interview}" target="_blank" rel="noopener noreferrer" class="link-btn" style="background-color: #343a40;">🎙️ 인터뷰</a>` : ''}
-                                ${isValidUrl(highlight) ? `<a href="${highlight}" target="_blank" rel="noopener noreferrer" class="link-btn" style="background-color: #c92a2a;">⚾ 하이라이트</a>` : ''}
-                                ${isValidUrl(gameLog) ? `<a href="${gameLog}" target="_blank" rel="noopener noreferrer" class="link-btn" style="background-color: #2b8a3e;">📊 경기기록</a>` : ''}
+                                ${interview && interview !== '-' && interview !== '' ? `<a href="${interview}" target="_blank" rel="noopener noreferrer" class="link-btn" style="background-color: #343a40;">🎙️ 인터뷰</a>` : ''}
+                                ${highlight && highlight !== '-' && highlight !== '' ? `<a href="${highlight}" target="_blank" rel="noopener noreferrer" class="link-btn" style="background-color: #c92a2a;">⚾ 하이라이트</a>` : ''}
+                                ${gameLog && gameLog !== '-' && gameLog !== '' ? `<a href="${gameLog}" target="_blank" rel="noopener noreferrer" class="link-btn" style="background-color: #2b8a3e;">📊 경기기록</a>` : ''}
                             </div>
                         </div>
                     `;
