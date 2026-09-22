@@ -37,8 +37,8 @@
             margin-bottom: 15px;
         }
         .profile-img {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -207,12 +207,45 @@
         // ⚠️ 본인의 구글 시트 CSV 웹 게시 링크를 여기에 꼭 넣어주세요!
         const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=0&single=true&output=csv';
 
+        // CSV 데이터를 정확하게 파싱하는 안전한 함수 (쉼표/따옴표 엉킴 방지)
+        function parseCSV(text) {
+            let lines = [];
+            let row = [''];
+            let inQuotes = false;
+            
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                let nextC = text[i + 1];
+                
+                if (c === '"') {
+                    if (inQuotes && nextC === '"') {
+                        row[row.length - 1] += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (c === ',' && !inQuotes) {
+                    row.push('');
+                } else if ((c === '\r' || c === '\n') && !inQuotes) {
+                    if (c === '\r' && nextC === '\n') { i++; }
+                    lines.push(row);
+                    row = [''];
+                } else {
+                    row[row.length - 1] += c;
+                }
+            }
+            if (row.length > 1 || row[0] !== '') {
+                lines.push(row);
+            }
+            return lines;
+        }
+
         async function loadBaseballData() {
             try {
                 const response = await fetch(CSV_URL);
                 const data = await response.text();
                 
-                const rows = data.split('\n').map(row => row.split(','));
+                const rows = parseCSV(data);
                 
                 let scheduleHTML = '';
                 let recordHTML = '';
