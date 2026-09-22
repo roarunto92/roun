@@ -209,7 +209,7 @@
             border-radius: 8px;
         }
 
-        /* 📌 하단 푸터 (Copyright & Instagram) */
+        /* 📌 하단 푸터 (인스타그램 링크 & 저작권) */
         .footer {
             margin-top: 40px;
             padding-top: 20px;
@@ -218,11 +218,18 @@
             font-size: 12px;
             color: #888;
         }
+        .instagram-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
         .instagram-link {
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            margin-bottom: 8px;
             color: #444;
             text-decoration: none;
             font-weight: 600;
@@ -238,7 +245,7 @@
         .copyright {
             color: #aaa;
             font-size: 11px;
-            margin-top: 4px;
+            margin-top: 6px;
         }
     </style>
 </head>
@@ -278,15 +285,18 @@
             <div id="record-list"><div class="empty-text">데이터를 불러오는 중...</div></div>
         </section>
 
-        <!-- 📌 푸터 영역 (인스타그램 링크 & 저작권) -->
+        <!-- 📌 푸터 영역 (인스타그램 링크 2개 & 저작권) -->
         <footer class="footer">
-            <div>
+            <div class="instagram-group">
+                <a href="https://www.instagram.com/_roun92_?stkn=M2lpMjQ5YmZ3c3c1" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                    ⚾ @_roun92_
+                </a>
                 <a href="https://www.instagram.com/roar_unto.92?stkn=MW1kY2czamNtN2gydg==" target="_blank" rel="noopener noreferrer" class="instagram-link">
                     📸 @roar_unto.92
                 </a>
             </div>
             <div class="copyright">
-                © 2026 roarunto92. All rights reserved.
+                © 2026 roar_unto.92. All rights reserved.
             </div>
         </footer>
     </div>
