@@ -9,7 +9,7 @@
             --primary-color: #c92a2a; /* 팀 컬러 포인트 레드 */
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
-            --text-main: #111111 !important; /* 강제 검정색 적용 */
+            --text-main: #111111 !important;
             --text-sub: #6c757d;
         }
 
@@ -31,7 +31,21 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
-        /* 헤더 스타일 (강제 검정색) */
+        /* 프로필 이미지 스타일 */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%; /* 동그란 모양 */
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* 헤더 스타일 */
         .header {
             text-align: center;
             margin-bottom: 35px;
@@ -41,7 +55,7 @@
         h1 { 
             font-size: 22px !important; 
             font-weight: 800 !important; 
-            color: #111111 !important; /* 무조건 검정색 */
+            color: #111111 !important; 
             margin: 0 0 6px 0; 
             letter-spacing: -0.5px;
         }
@@ -51,12 +65,12 @@
             font-weight: 500;
         }
         
-        /* 섹션 타이틀 (강제 검정색) */
+        /* 섹션 타이틀 */
         section { margin-bottom: 30px; }
         h2 { 
             font-size: 16px !important; 
             font-weight: 700 !important; 
-            color: #111111 !important; /* 무조건 검정색 */
+            color: #111111 !important; 
             display: flex;
             align-items: center;
             gap: 6px;
@@ -167,9 +181,15 @@
 <body>
 
     <div class="container">
+        <!-- 📸 선수 프로필 사진 영역 -->
+        <div class="profile-container">
+            <!-- 여기에 사진 주소(URL)를 넣거나 이미지 파일 이름을 넣으세요 -->
+            <img src="https://roarunto92.github.io/roun_baseball001/260909.jpg?w=150" alt="선수 프로필" class="profile-img">
+        </div>
+
         <div class="header">
             <h1>이로운 선발 등판 기록</h1>
-            <div class="subtitle">2026.09.03 ~ ing</div>
+            <div class="subtitle">2026.09.03 ~ ING</div>
         </div>
 
         <!-- 다가오는 일정 섹션 -->
