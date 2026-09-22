@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEE ROUN's Archives</title>
+    <title>LEE ROUN's Archives - HOME</title>
     <style>
         :root {
             --primary-color: #c92a2a; /* 팀 컬러 포인트 레드 */
@@ -37,8 +37,8 @@
             margin-bottom: 15px;
         }
         .profile-img {
-            width: 90px;
-            height: 90px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -64,10 +64,10 @@
             margin-bottom: 15px;
         }
         
-        /* 🧭 네비게이션 메뉴 버튼 바 */
+        /* 🧭 네비게이션 메뉴 바 ([통산성적] 추가됨) */
         .nav-menu {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 30px;
@@ -75,7 +75,7 @@
             border-bottom: 2px solid #f1f3f5;
         }
         .nav-btn {
-            padding: 7px 14px;
+            padding: 7px 12px;
             background-color: #f1f3f5;
             color: #495057;
             text-decoration: none;
@@ -214,18 +214,19 @@
 
         <div class="header">
             <h1>LEE ROUN's Archives</h1>
-            <div class="subtitle">2023.04.02 ~ ing</div>
+            <div class="subtitle">2026.09.03 ~ ING</div>
 
-            <!-- 🧭 네비게이션 메뉴 바 -->
+            <!-- 🧭 네비게이션 메뉴 바 (HOME active) -->
             <nav class="nav-menu">
-                <a href="index.html" class="nav-btn active">  HOME</a>
-                <a href="2023.html" class="nav-btn"> 2023</a>
-                <a href="2024.html" class="nav-btn"> 2024</a>
-                <a href="2025.html" class="nav-btn"> 2025</a>
+                <a href="index.html" class="nav-btn active">HOME</a>
+                <a href="stats.html" class="nav-btn">통산성적</a>
+                <a href="2023.html" class="nav-btn">2023</a>
+                <a href="2024.html" class="nav-btn">2024</a>
+                <a href="2025.html" class="nav-btn">2025</a>
             </nav>
         </div>
 
-        <!-- 다음 등판 일정 섹션 -->
+        <!-- 다가오는 일정 섹션 -->
         <section>
             <h2>📅 다음 등판 일정</h2>
             <div id="schedule-list"><div class="empty-text">데이터를 불러오는 중...</div></div>
@@ -239,8 +240,8 @@
     </div>
 
     <script>
-        // ⚠️ 본인의 구글 시트 CSV 웹 게시 링크를 여기에 꼭 넣어주세요!
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=0&single=true&output=csv';
+        // ⚠️ 본인의 메인 구글 시트 CSV 웹 게시 링크를 여기에 꼭 넣어주세요!
+        const CSV_URL = 'YOUR_CSV_LINK_HERE';
 
         // CSV 데이터를 안전하게 파싱하는 함수 (링크 깨짐 방지)
         function parseCSV(text) {
