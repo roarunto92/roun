@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이로운 선수 - 통산성적</title>
+    <style>
+        :root {
+            --primary-color: #c92a2a; /* 팀 컬러 포인트 레드 */
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #111111 !important;
+            --text-sub: #6c757d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 24px 16px;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px 20px 20px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 프로필 이미지 */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* 헤더 */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+        }
+        h1 { 
+            font-size: 22px !important; 
+            font-weight: 800 !important; 
+            color: #111111 !important; 
+            margin: 0 0 6px 0; 
+            letter-spacing: -0.5px;
+        }
+        .subtitle { 
+            color: var(--text-sub); 
+            font-size: 13px; 
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        /* 🧭 네비게이션 메뉴 바 */
+        .nav-menu {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+        .nav-btn {
+            padding: 6px 12px;
+            background-color: #f1f3f5;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover {
+            background-color: #e9ecef;
+            color: #111;
+        }
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 섹션 타이틀 */
+        section { margin-bottom: 30px; }
+        h2 { 
+            font-size: 16px !important; 
+            font-weight: 700 !important; 
+            color: #111111 !important; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 14px; 
+        }
+
+        /* 1. 시즌 주요기록 요약 카드 박스 */
+        .summary-card {
+            background-color: #1a1a1a;
+            color: white;
+            border-radius: 14px;
+            padding: 20px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            text-align: center;
+            gap: 5px;
+        }
+        .stat-item .stat-label {
+            font-size: 12px;
+            color: #adb5bd;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .stat-item .stat-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        /* 2. 연도별 기본성적 테이블 */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            background: white;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .stats-table th {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 12px 8px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        .stats-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #f1f3f5;
+            color: #333;
+        }
+        .stats-table tr.total-row {
+            background-color: #f1f3f5;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .stats-table tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .empty-text {
+            font-size: 13px;
+            color: var(--text-sub);
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* 📌 하단 푸터 */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+        .instagram-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #444;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 12px;
+            background: #f1f3f5;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+        .instagram-link:hover {
+            background: #e9ecef;
+            color: var(--primary-color);
+        }
+        .copyright {
+            color: #aaa;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 📸 선수 프로필 사진 -->
+        <div class="profile-container">
+            <img src="https://github.com/roarunto92/roun/260909_2nd.jpg?w=150" alt="선수 프로필" class="profile-img">
+        </div>
+
+        <div class="header">
+            <h1>이로운 선수 통산성적</h1>
+            <div class="subtitle">Career Statistics & Records</div>
+
+            <!-- 🧭 네비게이션 메뉴 바 (통산성적 active) -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn">HOME</a>
+                <a href="stats.html" class="nav-btn active">통산성적</a>
+                <a href="2023.html" class="nav-btn">2023</a>
+                <a href="2024.html" class="nav-btn">2024</a>
+                <a href="2025.html" class="nav-btn">2025</a>
+                <a href="2026.html" class="nav-btn">2026</a>
+                <a href="download.html" class="nav-btn">DOWNLOAD</a>
+            </nav>
+        </div>
+
+        <!-- 1. 시즌 주요기록 요약 카드 (구글 시트 합계 행 값으로 실시간 자동 반영) -->
+        <section>
+            <h2>⭐ 통산 주요 기록 요약</h2>
+            <div class="summary-card">
+                <div class="summary-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">ERA</div>
+                        <div id="summary-era" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">승-패</div>
+                        <div id="summary-wl" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">SV/HD</div>
+                        <div id="summary-svhd" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">경기</div>
+                        <div id="summary-games" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">승률</div>
+                        <div id="summary-pct" class="stat-value">-</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 연도별 기본 성적 테이블 -->
+        <section>
+            <h2>📋 연도별 기본 성적</h2>
+            <div class="table-responsive">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>시즌</th>
+                            <th>팀</th>
+                            <th>ERA</th>
+                            <th>경기</th>
+                            <th>승</th>
+                            <th>패</th>
+                            <th>세이브</th>
+                            <th>홀드</th>
+                            <th>승률</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stats-tbody">
+                        <tr><td colspan="9" class="empty-text">기록을 불러오는 중...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 📌 푸터 영역 -->
+        <footer class="footer">
+            <div class="instagram-group">
+                <a href="https://www.instagram.com/_roun92_?stkn=M2lpMjQ5YmZ3c3c1" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                    ⚾ @_roun92_
+                </a>
+                <a href="https://www.instagram.com/roar_unto.92?stkn=MW1kY2czamNtN2gydg==" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                    📸 @roar_unto.92
+                </a>
+            </div>
+            <div class="copyright">
+                © 2026 roarunto92. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ⚠️ 통산기록 탭의 CSV 웹 게시 링크를 여기에 넣어주세요!
+        const STATS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=12195463&single=true&output=csv';
+
+        function parseCSV(text) {
+            let lines = [];
+            let row = [''];
+            let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                let nextC = text[i + 1];
+                if (c === '"') {
+                    if (inQuotes && nextC === '"') { row[row.length - 1] += '"'; i++; }
+                    else { inQuotes = !inQuotes; }
+                } else if (c === ',' && !inQuotes) {
+                    row.push('');
+                } else if ((c === '\r' || c === '\n') && !inQuotes) {
+                    if (c === '\r' && nextC === '\n') { i++; }
+                    lines.push(row); row = [''];
+                } else { row[row.length - 1] += c; }
+            }
+            if (row.length > 1 || row[0] !== '') { lines.push(row); }
+            return lines;
+        }
+
+        async function loadStatsData() {
+            try {
+                const response = await fetch(STATS_CSV_URL);
+                const data = await response.text();
+                const rows = parseCSV(data);
+                
+                let tableHTML = '';
+                
+                // 1행(헤더: 시즌, 팀, ERA, 경기, 승, 패, 세이브, 홀드, 승률) 건너뜀
+                for (let i = 1; i < rows.length; i++) {
+                    const cols = rows[i];
+                    if (cols.length < 9) continue;
+
+                    const season = cols[0] ? cols[0].trim() : '';
+                    const team   = cols[1] ? cols[1].trim() : '';
+                    const era    = cols[2] ? cols[2].trim() : '';
+                    const games  = cols[3] ? cols[3].trim() : '';
+                    const win    = cols[4] ? cols[4].trim() : '';
+                    const lose   = cols[5] ? cols[5].trim() : '';
+                    const sv     = cols[6] ? cols[6].trim() : '';
+                    const hd     = cols[7] ? cols[7].trim() : '';
+                    const pct    = cols[8] ? cols[8].trim() : '';
+
+                    if (!season) continue;
+
+                    const isTotal = season.includes('합계');
+
+                    // '합계' 행을 만나면 상단 요약 카드 데이터도 함께 갱신
+                    if (isTotal) {
+                        document.getElementById('summary-era').textContent = era || '-';
+                        document.getElementById('summary-wl').textContent = `${win}-${lose}`;
+                        document.getElementById('summary-svhd').textContent = `${sv}/${hd}`;
+                        document.getElementById('summary-games').textContent = games || '-';
+                        document.getElementById('summary-pct').textContent = pct || '-';
+                    }
+
+                    tableHTML += `
+                        <tr class="${isTotal ? 'total-row' : ''}">
+                            <td>${season}</td>
+                            <td>${team}</td>
+                            <td>${era}</td>
+                            <td>${games}</td>
+                            <td>${win}</td>
+                            <td>${lose}</td>
+                            <td>${sv}</td>
+                            <td>${hd}</td>
+                            <td>${pct}</td>
+                        </tr>
+                    `;
+                }
+
+                document.getElementById('stats-tbody').innerHTML = tableHTML || '<tr><td colspan="9" class="empty-text">등록된 성적이 없습니다.</td></tr>';
+            } catch (error) {
+                console.error('통산 기록 불러오기 실패:', error);
+                document.getElementById('stats-tbody').innerHTML = '<tr><td colspan="9" class="empty-text">데이터를 불러오지 못했습니다. CSV 링크를 확인해 주세요.</td></tr>';
+            }
+        }
+
+        loadStatsData();
+    </script>
+</body>
+</html>
