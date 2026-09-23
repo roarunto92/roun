@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이로운 선발 등판 기록 - 2025</title>
+    <style>
+        :root {
+            --primary-color: #c92a2a;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #111111 !important;
+            --text-sub: #6c757d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 24px 16px;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px 20px 20px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .profile-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+        }
+        h1 { 
+            font-size: 22px !important; 
+            font-weight: 800 !important; 
+            color: #111111 !important; 
+            margin: 0 0 6px 0; 
+            letter-spacing: -0.5px;
+        }
+        .subtitle { 
+            color: var(--text-sub); 
+            font-size: 13px; 
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+        .nav-btn {
+            padding: 6px 12px;
+            background-color: #f1f3f5;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover {
+            background-color: #e9ecef;
+            color: #111;
+        }
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .summary-card {
+            background-color: #1a1a1a;
+            color: white;
+            border-radius: 14px;
+            padding: 18px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            text-align: center;
+            gap: 4px;
+        }
+        .stat-item .stat-label {
+            font-size: 11px;
+            color: #adb5bd;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .stat-item .stat-value {
+            font-size: 15px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        section { margin-bottom: 30px; }
+        h2 { 
+            font-size: 16px !important; 
+            font-weight: 700 !important; 
+            color: #111111 !important; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 14px; 
+        }
+        
+        .card {
+            background: #ffffff;
+            padding: 16px 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .card-info-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card .badge { 
+            background: var(--primary-color); 
+            color: white; 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            font-weight: 700; 
+        }
+        .card .date { 
+            font-size: 13px; 
+            font-weight: 600; 
+            color: var(--text-sub); 
+        }
+        .card .match { 
+            font-size: 15px; 
+            color: var(--text-main); 
+            font-weight: 700; 
+        }
+        
+        .card .record { 
+            font-size: 15px; 
+            color: var(--primary-color); 
+            margin: 8px 0; 
+            font-weight: 700; 
+        }
+        .card .record-memo {
+            font-size: 13px;
+            font-weight: normal;
+            color: var(--text-sub);
+        }
+
+        .card .extra-info { 
+            margin-top: 6px; 
+            font-size: 13px; 
+            color: #495057; 
+            background: #f8f9fa;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 11px;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.2s, transform 0.1s;
+            user-select: none;
+        }
+        .link-btn:active {
+            transform: scale(0.96);
+        }
+        .link-btn:hover { opacity: 0.85; }
+
+        .empty-text {
+            font-size: 13px;
+            color: var(--text-sub);
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+        .instagram-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #444;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 12px;
+            background: #f1f3f5;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+        .instagram-link:hover {
+            background: #e9ecef;
+            color: var(--primary-color);
+        }
+        .copyright {
+            color: #aaa;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile-container">
+            <img src="https://github.com/roarunto92/roun/260909_2nd.jpg?w=150" alt="선수 프로필" class="profile-img">
+        </div>
+
+        <div class="header">
+            <h1>이로운 2025시즌 등판 기록</h1>
+            <div class="subtitle">2025 Season Archive</div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-btn">HOME</a>
+                <a href="stats.html" class="nav-btn">통산성적</a>
+                <a href="2023.html" class="nav-btn">2023</a>
+                <a href="2024.html" class="nav-btn">2024</a>
+                <a href="2025.html" class="nav-btn active">2025</a>
+                <a href="2026.html" class="nav-btn">2026</a>
+                <a href="download.html" class="nav-btn">DOWNLOAD</a>
+            </nav>
+        </div>
+
+        <!-- ⭐ 2025 시즌 주요 스탯 요약 카드 -->
+        <section>
+            <h2>⭐ 2025 시즌 성적</h2>
+            <div class="summary-card">
+                <div class="summary-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">ERA</div>
+                        <div class="stat-value">1.99</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">승-패</div>
+                        <div class="stat-value">6-5</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">SV/HD</div>
+                        <div class="stat-value">1/33</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">경기</div>
+                        <div class="stat-value">75</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">승률</div>
+                        <div class="stat-value">0.545</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2025 주요 일정 -->
+        <section>
+            <h2>📅 2025 주요 일정</h2>
+            <div id="schedule-list"><div class="empty-text">데이터를 불러오는 중...</div></div>
+        </section>
+
+        <!-- 2025 등판 기록 -->
+        <section>
+            <h2>📊 2025 등판 기록</h2>
+            <div id="record-list"><div class="empty-text">데이터를 불러오는 중...</div></div>
+        </section>
+
+        <footer class="footer">
+            <div class="instagram-group">
+                <a href="https://www.instagram.com/_roun92_?stkn=M2lpMjQ5YmZ3c3c1" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                    ⚾ @_roun92_
+                </a>
+                <a href="https://www.instagram.com/roar_unto.92?stkn=MW1kY2czamNtN2gydg==" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                    📸 @roar_unto.92
+                </a>
+            </div>
+            <div class="copyright">
+                © 2026 roar_unto.92. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=1826462396&single=true&output=csv';
+
+        function parseCSV(text) {
+            let lines = [];
+            let row = [''];
+            let inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                let nextC = text[i + 1];
+                if (c === '"') {
+                    if (inQuotes && nextC === '"') { row[row.length - 1] += '"'; i++; }
+                    else { inQuotes = !inQuotes; }
+                } else if (c === ',' && !inQuotes) { row.push(''); }
+                else if ((c === '\r' || c === '\n') && !inQuotes) {
+                    if (c === '\r' && nextC === '\n') { i++; }
+                    lines.push(row); row = [''];
+                } else { row[row.length - 1] += c; }
+            }
+            if (row.length > 1 || row[0] !== '') { lines.push(row); }
+            return lines;
+        }
+
+        function cleanUrl(raw) {
+            if (!raw) return '';
+            let s = raw.trim().replace(/^["']+|["']+$/g, '').trim();
+            if (s.startsWith('www.')) s = 'https://' + s;
+            return s;
+        }
+
+        function safeOpen(url) {
+            if (!url) return;
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        async function loadBaseballData() {
+            try {
+                const response = await fetch(CSV_URL);
+                const data = await response.text();
+                const rows = parseCSV(data);
+                
+                let scheduleHTML = '';
+                let recordHTML = '';
+
+                for (let i = 1; i < rows.length; i++) {
+                    const cols = rows[i];
+                    if (cols.length < 6) continue;
+
+                    const num = cols[0] ? cols[0].trim() : '';
+                    const type = cols[1] ? cols[1].trim() : '';
+                    const date = cols[2] ? cols[2].trim() : '';
+                    const opponent = cols[3] ? cols[3].trim() : '';
+                    const result = cols[4] ? cols[4].trim() : '';
+                    const memo = cols[5] ? cols[5].trim() : '';
+                    const record = cols[6] ? cols[6].trim() : '';
+                    const interview = cleanUrl(cols[7]);
+                    const highlight = cleanUrl(cols[8]);
+                    const gameLog = cleanUrl(cols[9]);
+
+                    const isValidUrl = (url) => url && (url.startsWith('http://') || url.startsWith('https://'));
+
+                    const cardContent = `
+                        <div class="card">
+                            <div class="card-top">
+                                <div class="card-info-group">
+                                    ${num ? `<span class="badge">${num}번째</span>` : ''}
+                                    <span class="date">${date}</span>
+                                </div>
+                                <span class="match">${opponent}</span>
+                            </div>
+                            <div class="record">
+                                ${result} <span class="record-memo">${memo ? `(${memo})` : ''}</span>
+                            </div>
+                            ${record ? `<div class="extra-info">📋 세부기록: ${record}</div>` : ''}
+                            <div class="btn-group">
+                                ${isValidUrl(interview) ? `<button type="button" class="link-btn" style="background-color: #343a40;" onclick="safeOpen('${interview}')">🎙️ 인터뷰</button>` : ''}
+                                ${isValidUrl(highlight) ? `<button type="button" class="link-btn" style="background-color: #c92a2a;" onclick="safeOpen('${highlight}')">⚾ 하이라이트</button>` : ''}
+                                ${isValidUrl(gameLog) ? `<button type="button" class="link-btn" style="background-color: #2b8a3e;" onclick="safeOpen('${gameLog}')">📊 경기기록</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+
+                    if (type === '일정') { scheduleHTML += cardContent; }
+                    else if (type === '기록') { recordHTML += cardContent; }
+                }
+
+                document.getElementById('schedule-list').innerHTML = scheduleHTML || '<div class="empty-text">등록된 일정이 없습니다.</div>';
+                document.getElementById('record-list').innerHTML = recordHTML || '<div class="empty-text">등록된 기록이 없습니다.</div>';
+            } catch (error) {
+                console.error('2025 데이터 로드 실패:', error);
+                document.getElementById('schedule-list').innerHTML = '<div class="empty-text">데이터 로드 실패</div>';
+                document.getElementById('record-list').innerHTML = '<div class="empty-text">데이터 로드 실패</div>';
+            }
+        }
+
+        loadBaseballData();
+    </script>
+</body>
+</html>
