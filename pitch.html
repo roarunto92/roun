@@ -6,7 +6,7 @@
     <title>경기별 구종 분석</title>
     <style>
         :root {
-            --primary-color: #c92a2a; /* 팀 포인트 레드 */
+            --primary-color: #c92a2a;
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --text-main: #111111 !important;
@@ -23,7 +23,7 @@
         }
 
         .container {
-            max-width: 920px;
+            max-width: 900px;
             margin: 0 auto;
             background: var(--card-bg);
             padding: 30px 20px 20px 20px;
@@ -122,29 +122,34 @@
             border-color: var(--primary-color);
         }
 
-        /* ⭐ 검정색 구종 요약 카드 */
+        /* ⭐ 10개 구종 전체 수용형 2줄 그리드 검정 카드 */
         .summary-card {
             background-color: #1a1a1a;
             color: white;
             border-radius: 14px;
-            padding: 18px 12px;
+            padding: 18px 14px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             margin-bottom: 25px;
         }
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
+            gap: 12px 6px;
             text-align: center;
-            gap: 4px;
+        }
+        @media (max-width: 520px) {
+            .summary-grid {
+                grid-template-columns: repeat(3, 1fr); /* 작은 모바일 화면에선 3열 자동 재배치 */
+            }
         }
         .stat-item .stat-label {
             font-size: 11px;
             color: #adb5bd;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: 600;
         }
         .stat-item .stat-value {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
             color: #ffffff;
         }
@@ -190,11 +195,6 @@
         }
         .pitch-table tr:hover td {
             background-color: #f8f9fa;
-        }
-        .col-highlight {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-            background-color: #fff9f9;
         }
 
         .empty-text {
@@ -251,7 +251,7 @@
         </div>
 
         <div class="header">
-            <h1>이로운 선수 경기별 구종 분석</h1>
+            <h1>경기별 구종 분석</h1>
             <div class="subtitle">Pitch-by-Pitch Statistics</div>
 
             <!-- 🧭 5개 통합 네비게이션 메뉴 (구종 active) -->
@@ -275,30 +275,50 @@
             </select>
         </div>
 
-        <!-- ⭐ 검정색 구종 요약 카드 (시즌 변경 시 자동 계산/반영) -->
+        <!-- ⭐ 10개 구종 전체 평균 구사율 요약 카드 -->
         <section>
-            <h2 id="summary-title">⭐ 2026 시즌 주요 구종 요약</h2>
+            <h2 id="summary-title">⭐ 2026 시즌 전체 구종 평균 구사율</h2>
             <div class="summary-card">
                 <div class="summary-grid">
                     <div class="stat-item">
-                        <div class="stat-label">총 투구수</div>
-                        <div id="sum-total" class="stat-value">-</div>
+                        <div class="stat-label">투심</div>
+                        <div id="sum-twoSeam" class="stat-value">-</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">포심(직구)</div>
-                        <div id="sum-four" class="stat-value">-</div>
+                        <div class="stat-label">포심</div>
+                        <div id="sum-fourSeam" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">커터</div>
+                        <div id="sum-cutter" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">커브</div>
+                        <div id="sum-curve" class="stat-value">-</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">슬라이더</div>
                         <div id="sum-slider" class="stat-value">-</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">포크(스플리터)</div>
+                        <div class="stat-label">체인지업</div>
+                        <div id="sum-changeUp" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">싱커</div>
+                        <div id="sum-sinker" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">포크</div>
                         <div id="sum-fork" class="stat-value">-</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">커브</div>
-                        <div id="sum-curve" class="stat-value">-</div>
+                        <div class="stat-label">너클</div>
+                        <div id="sum-knuckle" class="stat-value">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">기타</div>
+                        <div id="sum-etc" class="stat-value">-</div>
                     </div>
                 </div>
             </div>
@@ -306,14 +326,13 @@
 
         <!-- ⚾ 경기별 구종 분포 테이블 -->
         <section>
-            <h2 id="table-title">⚾ 2026 경기별 구종 분포</h2>
+            <h2 id="table-title">⚾ 2026 경기별 구종 분포 (%)</h2>
             <div class="table-responsive">
                 <table class="pitch-table">
                     <thead>
                         <tr>
                             <th>날짜</th>
                             <th>상대팀</th>
-                            <th>전체투구</th>
                             <th>투심</th>
                             <th>포심</th>
                             <th>커터</th>
@@ -327,7 +346,7 @@
                         </tr>
                     </thead>
                     <tbody id="pitch-tbody">
-                        <tr><td colspan="13" class="empty-text">구종 기록을 불러오는 중...</td></tr>
+                        <tr><td colspan="12" class="empty-text">구종 기록을 불러오는 중...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -354,7 +373,7 @@
             '2026': 'YOUR_2026_PITCH_CSV_LINK_HERE',
             '2025': 'YOUR_2025_PITCH_CSV_LINK_HERE',
             '2024': 'YOUR_2024_PITCH_CSV_LINK_HERE',
-            '2023': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=548572224&single=true&output=csv'
+            '2023': 'YOUR_2023_PITCH_CSV_LINK_HERE'
         };
 
         function parseCSV(text) {
@@ -378,28 +397,26 @@
             return lines;
         }
 
-        // 숫자 안전 변환기
-        function toNum(val) {
+        function toFloat(val) {
             if (!val) return 0;
-            const clean = val.toString().replace(/[^0-9]/g, '');
-            return clean ? parseInt(clean, 10) : 0;
+            const clean = val.toString().replace(/[^0-9.]/g, '');
+            const num = parseFloat(clean);
+            return isNaN(num) ? 0 : num;
         }
 
         async function loadPitchData(year) {
-            document.getElementById('summary-title').textContent = `⭐ ${year} 시즌 주요 구종 요약`;
-            document.getElementById('table-title').textContent = `⚾ ${year} 경기별 구종 분포`;
+            document.getElementById('summary-title').textContent = `⭐ ${year} 시즌 전체 구종 평균 구사율`;
+            document.getElementById('table-title').textContent = `⚾ ${year} 경기별 구종 분포 (%)`;
 
             const tbody = document.getElementById('pitch-tbody');
-            tbody.innerHTML = `<tr><td colspan="13" class="empty-text">${year}시즌 기록을 불러오는 중...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="12" class="empty-text">${year}시즌 기록을 불러오는 중...</td></tr>`;
 
             const url = PITCH_CSV_URLS[year];
+            const pitchKeys = ['twoSeam', 'fourSeam', 'cutter', 'curve', 'slider', 'changeUp', 'sinker', 'fork', 'knuckle', 'etc'];
+
             if (!url || url.includes('YOUR_')) {
-                tbody.innerHTML = `<tr><td colspan="13" class="empty-text">${year}시즌 CSV 링크가 설정되지 않았습니다.</td></tr>`;
-                document.getElementById('sum-total').textContent = '-';
-                document.getElementById('sum-four').textContent = '-';
-                document.getElementById('sum-slider').textContent = '-';
-                document.getElementById('sum-fork').textContent = '-';
-                document.getElementById('sum-curve').textContent = '-';
+                tbody.innerHTML = `<tr><td colspan="12" class="empty-text">${year}시즌 CSV 링크가 설정되지 않았습니다.</td></tr>`;
+                pitchKeys.forEach(k => document.getElementById(`sum-${k}`).textContent = '-');
                 return;
             }
 
@@ -410,46 +427,48 @@
                 
                 let tableHTML = '';
                 
-                // 시즌 합계 누적 변수
-                let totalPitches = 0;
-                let totalFourSeam = 0;
-                let totalSlider = 0;
-                let totalFork = 0;
-                let totalCurve = 0;
+                let gameCount = 0;
+                let sums = {
+                    twoSeam: 0, fourSeam: 0, cutter: 0, curve: 0, slider: 0,
+                    changeUp: 0, sinker: 0, fork: 0, knuckle: 0, etc: 0
+                };
 
-                // 1행(헤더: 날짜, 상대팀, 전체투구, 투심, 포심, 커터, 커브, 슬라이더, 체인지업, 싱커, 포크, 너클, 기타) 건너뜀
+                // 1행(헤더: 날짜, 상대팀, 투심, 포심, 커터, 커브, 슬라이더, 체인지업, 싱커, 포크, 너클, 기타)
                 for (let i = 1; i < rows.length; i++) {
                     const cols = rows[i];
-                    if (cols.length < 3) continue;
+                    if (cols.length < 2) continue;
 
                     const date     = cols[0] ? cols[0].trim() : '';
                     const opponent = cols[1] ? cols[1].trim() : '';
-                    const total    = cols[2] ? cols[2].trim() : '-';
-                    const twoSeam  = cols[3] ? cols[3].trim() : '-';
-                    const fourSeam = cols[4] ? cols[4].trim() : '-';
-                    const cutter   = cols[5] ? cols[5].trim() : '-';
-                    const curve    = cols[6] ? cols[6].trim() : '-';
-                    const slider   = cols[7] ? cols[7].trim() : '-';
-                    const changeUp = cols[8] ? cols[8].trim() : '-';
-                    const sinker   = cols[9] ? cols[9].trim() : '-';
-                    const fork     = cols[10] ? cols[10].trim() : '-';
-                    const knuckle  = cols[11] ? cols[11].trim() : '-';
-                    const etc      = cols[12] ? cols[12].trim() : '-';
+                    const twoSeam  = cols[2] ? cols[2].trim() : '-';
+                    const fourSeam = cols[3] ? cols[3].trim() : '-';
+                    const cutter   = cols[4] ? cols[4].trim() : '-';
+                    const curve    = cols[5] ? cols[5].trim() : '-';
+                    const slider   = cols[6] ? cols[6].trim() : '-';
+                    const changeUp = cols[7] ? cols[7].trim() : '-';
+                    const sinker   = cols[8] ? cols[8].trim() : '-';
+                    const fork     = cols[9] ? cols[9].trim() : '-';
+                    const knuckle  = cols[10] ? cols[10].trim() : '-';
+                    const etc      = cols[11] ? cols[11].trim() : '-';
 
                     if (!date) continue;
 
-                    // 구종 투구수 누적 계산
-                    totalPitches += toNum(total);
-                    totalFourSeam += toNum(fourSeam);
-                    totalSlider += toNum(slider);
-                    totalFork += toNum(fork);
-                    totalCurve += toNum(curve);
+                    gameCount++;
+                    sums.twoSeam  += toFloat(twoSeam);
+                    sums.fourSeam += toFloat(fourSeam);
+                    sums.cutter   += toFloat(cutter);
+                    sums.curve    += toFloat(curve);
+                    sums.slider   += toFloat(slider);
+                    sums.changeUp += toFloat(changeUp);
+                    sums.sinker   += toFloat(sinker);
+                    sums.fork     += toFloat(fork);
+                    sums.knuckle  += toFloat(knuckle);
+                    sums.etc      += toFloat(etc);
 
                     tableHTML += `
                         <tr>
                             <td><strong>${date}</strong></td>
                             <td>${opponent}</td>
-                            <td class="col-highlight">${total}</td>
                             <td>${twoSeam}</td>
                             <td>${fourSeam}</td>
                             <td>${cutter}</td>
@@ -464,31 +483,23 @@
                     `;
                 }
 
-                tbody.innerHTML = tableHTML || `<tr><td colspan="13" class="empty-text">${year}시즌 등록된 구종 데이터가 없습니다.</td></tr>`;
+                tbody.innerHTML = tableHTML || `<tr><td colspan="12" class="empty-text">${year}시즌 등록된 구종 데이터가 없습니다.</td></tr>`;
 
-                // 상단 요약 카드 데이터 반영 (투구수 및 구사 비율 %)
-                if (totalPitches > 0) {
-                    const fourPct = ((totalFourSeam / totalPitches) * 100).toFixed(1);
-                    const sliderPct = ((totalSlider / totalPitches) * 100).toFixed(1);
-                    const forkPct = ((totalFork / totalPitches) * 100).toFixed(1);
-                    const curvePct = ((totalCurve / totalPitches) * 100).toFixed(1);
-
-                    document.getElementById('sum-total').textContent = `${totalPitches}구`;
-                    document.getElementById('sum-four').textContent = `${totalFourSeam} (${fourPct}%)`;
-                    document.getElementById('sum-slider').textContent = `${totalSlider} (${sliderPct}%)`;
-                    document.getElementById('sum-fork').textContent = `${totalFork} (${forkPct}%)`;
-                    document.getElementById('sum-curve').textContent = `${totalCurve} (${curvePct}%)`;
+                // 10개 구종 전체 평균값 검정 카드에 반영
+                if (gameCount > 0) {
+                    pitchKeys.forEach(k => {
+                        const avg = (sums[k] / gameCount).toFixed(1);
+                        document.getElementById(`sum-${k}`).textContent = `${avg}%`;
+                    });
                 } else {
-                    document.getElementById('sum-total').textContent = '-';
-                    document.getElementById('sum-four').textContent = '-';
-                    document.getElementById('sum-slider').textContent = '-';
-                    document.getElementById('sum-fork').textContent = '-';
-                    document.getElementById('sum-curve').textContent = '-';
+                    pitchKeys.forEach(k => {
+                        document.getElementById(`sum-${k}`).textContent = '-';
+                    });
                 }
 
             } catch (error) {
                 console.error('구종 데이터 로드 실패:', error);
-                tbody.innerHTML = '<tr><td colspan="13" class="empty-text">데이터를 불러오지 못했습니다. CSV 링크를 확인해 주세요.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="12" class="empty-text">데이터를 불러오지 못했습니다. CSV 링크를 확인해 주세요.</td></tr>';
             }
         }
 
@@ -497,7 +508,7 @@
             loadPitchData(select.value);
         }
 
-        // 초기 화면 실행 (2026시즌 기본 로드)
+        // 초기 실행 (2026시즌 로드)
         loadPitchData('2026');
     </script>
 </body>
