@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>국가대표 기록 | LEE ROUN's Archive</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px 16px 60px;
+      background: #14151a;
+      color: #f1f3f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+    }
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+    }
+    header .sub {
+      color: #adb5bd;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid #2b2e3b;
+      border-bottom: 1px solid #2b2e3b;
+    }
+    nav a {
+      color: #ced4da;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    nav a:hover,
+    nav a.active {
+      background: #2b2e3b;
+      color: #ffffff;
+    }
+    .section-title {
+      margin: 28px 0 14px;
+      font-size: 1.2rem;
+    }
+    .summary-card {
+      background: #1e2028;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid #323642;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .badge-win {
+      background: #e03131;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+    .table-scroll {
+      overflow-x: auto;
+    }
+    table.stat-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 0.88rem;
+    }
+    table.stat-table th {
+      color: #868e96;
+      padding: 6px;
+      border-bottom: 1px solid #323642;
+      white-space: nowrap;
+    }
+    table.stat-table td {
+      padding: 10px 6px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .npb-inning-card {
+      background: #1c1d24;
+      color: #e9ecef;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    .npb-inning-header {
+      background: #282a34;
+      padding: 11px 16px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-bottom: 1px solid #343744;
+      display: flex;
+      justify-content: space-between;
+    }
+    .npb-batter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #2b2d38;
+    }
+    .npb-batter-row:last-child {
+      border-bottom: none;
+    }
+    .npb-left {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .npb-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+    .npb-badge {
+      background: #2e313d;
+      color: #adb5bd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: 44px;
+      text-align: center;
+      padding: 3px 0;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .npb-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .npb-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #495057;
+      display: inline-block;
+    }
+    .npb-dot.ball { background: #20c997; }
+    .npb-dot.strike { background: #fcc419; }
+    .npb-dot.out { background: #fa5252; }
+    .npb-result-hit { color: #ff922b; font-weight: 700; }
+    .npb-result-hr { color: #ff6b6b; font-weight: 700; }
+    .npb-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .npb-diamond {
+      position: relative;
+      width: 36px;
+      height: 24px;
+    }
+    .npb-base {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      background: #495057;
+      transform: rotate(45deg);
+    }
+    .npb-base.on { background: #fcc419; }
+    .npb-base.b2 { top: 2px; left: 13px; }
+    .npb-base.b3 { top: 9px; left: 5px; }
+    .npb-base.b1 { top: 9px; left: 21px; }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #868e96;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header>
+      <h1>LEE ROUN's Archive</h1>
+      <div class="sub">이로운 선수 아카이브 · 국가대표 기록</div>
+      <nav>
+        <a href="index.html">HOME</a>
+        <a href="stats.html">통산성적</a>
+        <a href="records.html">등판기록</a>
+        <a href="pitch.html">구종</a>
+        <a href="korea.html" class="active">KOREA</a>
+        <a href="download.html">DOWNLOAD</a>
+      </nav>
+    </header>
+
+    <h2 class="section-title">🇰🇷 국가대표 선발승 기록</h2>
+
+    <div class="summary-card">
+      <div class="summary-top">
+        <div>
+          <span class="badge-win">선발승</span>
+          <strong>2026 APBC vs 차이니즈 타이베이</strong>
+        </div>
+        <span style="font-size: 0.85rem; color: #adb5bd;">2026.11.14 · 도쿄돔 (한국 6 - 4 승)</span>
+      </div>
+      <div class="table-scroll">
+        <table class="stat-table">
+          <thead>
+            <tr>
+              <th>결과</th>
+              <th>이닝</th>
+              <th>투구수</th>
+              <th>상대타자</th>
+              <th>피안타</th>
+              <th>피홈런</th>
+              <th>탈삼진</th>
+              <th>볼넷</th>
+              <th>사구</th>
+              <th>폭투</th>
+              <th>실점(자책)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: #ff6b6b;">승</td>
+              <td>6</td>
+              <td>97</td>
+              <td>23</td>
+              <td>3</td>
+              <td>2</td>
+              <td style="color: #51cf66;">9</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>3 (3)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 class="section-title">⚾ 이닝별 투구 경과</h3>
+    <div id="national-pbp-container">
+      <div style="text-align: center; padding: 20px; color: #868e96;">투구 경과 데이터를 불러오는 중...</div>
+    </div>
+
+    <footer>
+      © 2026 roar_unto.92. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      // 구글 시트 '국대' 탭을 웹에 게시(CSV)한 URL을 따옴표 안에 넣으세요.
+      const NATIONAL_LOG_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=1081663371&single=true&output=csv";
+
+      function parseCSVLine(line) {
+        const result = [];
+        let cur = "", inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const ch = line[i];
+          if (ch === '"') { inQuotes = !inQuotes; }
+          else if (ch === ',' && !inQuotes) { result.push(cur.trim()); cur = ""; }
+          else { cur += ch; }
+        }
+        result.push(cur.trim());
+        return result;
+      }
+
+      function renderDots(count, max, activeClass) {
+        let html = "";
+        for (let i = 0; i < max; i++) {
+          html += `<span class="npb-dot ${i < count ? activeClass : ""}"></span>`;
+        }
+        return html;
+      }
+
+      function renderDiamond(runnersStr) {
+        const r = String(runnersStr || "");
+        const b1 = r.includes("1") ? "on" : "";
+        const b2 = r.includes("2") ? "on" : "";
+        const b3 = r.includes("3") ? "on" : "";
+        return `
+          <div class="npb-diamond" title="주자 상황">
+            <span class="npb-base b2 ${b2}"></span>
+            <span class="npb-base b3 ${b3}"></span>
+            <span class="npb-base b1 ${b1}"></span>
+          </div>
+        `;
+      }
+
+      async function loadNationalPBP() {
+        const container = document.getElementById("national-pbp-container");
+        if (!NATIONAL_LOG_CSV_URL || NATIONAL_LOG_CSV_URL.startsWith("여기에_")) {
+          container.innerHTML = '<div style="padding:16px; background:#1e2028; border-radius:8px; color:#adb5bd;">스크립트의 <strong>NATIONAL_LOG_CSV_URL</strong>에 구글 시트 CSV 링크를 입력해 주세요.</div>';
+          return;
+        }
+
+        try {
+          const res = await fetch(`${NATIONAL_LOG_CSV_URL}?t=${Date.now()}`);
+          const text = await res.text();
+          const lines = text.trim().split(/\r?\n/).slice(1);
+
+          const groups = {};
+          lines.forEach(line => {
+            if (!line.trim()) return;
+            const [inning, order, batter, balls, strikes, result, outs, runners, highlight] = parseCSVLine(line);
+            if (!inning) return;
+            if (!groups[inning]) groups[inning] = [];
+            groups[inning].push({
+              order, batter,
+              balls: parseInt(balls, 10) || 0,
+              strikes: parseInt(strikes, 10) || 0,
+              result,
+              outs: parseInt(outs, 10) || 0,
+              runners,
+              highlight: (highlight || "").toUpperCase()
+            });
+          });
+
+          container.innerHTML = Object.keys(groups).map(inning => {
+            const rowsHtml = groups[inning].map(item => {
+              let resultClass = "";
+              if (item.highlight === "HR") resultClass = "npb-result-hr";
+              else if (item.highlight === "HIT") resultClass = "npb-result-hit";
+
+              return `
+                <div class="npb-batter-row">
+                  <div class="npb-left">
+                    <div class="npb-line">
+                      <span class="npb-badge">타자</span>
+                      <strong>&gt; ${item.batter}</strong>
+                    </div>
+                    <div class="npb-line">
+                      <span class="npb-badge">BS</span>
+                      <div class="npb-dots">
+                        ${renderDots(item.balls, 3, "ball")}
+                        <span style="width:4px;"></span>
+                        ${renderDots(item.strikes, 2, "strike")}
+                      </div>
+                    </div>
+                    <div class="npb-line">
+                      <span class="npb-badge">결과</span>
+                      <span class="${resultClass}">${item.result}</span>
+                    </div>
+                  </div>
+                  <div class="npb-right">
+                    <div class="npb-dots" title="${item.outs}아웃">
+                      ${renderDots(item.outs, 2, "out")}
+                    </div>
+                    ${renderDiamond(item.runners)}
+                  </div>
+                </div>
+              `;
+            }).join("");
+
+            return `
+              <div class="npb-inning-card">
+                <div class="npb-inning-header">
+                  <span>${inning} · 차이니즈 타이베이 공격</span>
+                  <span style="color:#868e96; font-weight:400; font-size:0.85rem;">투수 이로운</span>
+                </div>
+                ${rowsHtml}
+              </div>
+            `;
+          }).join("");
+        } catch (e) {
+          container.innerHTML = '<div style="padding:16px; color:#ff6b6b;">데이터를 불러오는 중 오류가 발생했습니다.</div>';
+        }
+      }
+
+      loadNationalPBP();
+    })();
+  </script>
+</body>
+</html>
