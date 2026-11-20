@@ -104,7 +104,50 @@
             margin-bottom: 14px;
         }
 
-        /* 상단 요약 카드 */
+        /* 선발 투수 사진 + 경기 개요 카드 */
+        .game-meta-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #ffffff;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            margin-bottom: 12px;
+        }
+        .starter-photo {
+            width: 86px;
+            height: 86px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid #e9ecef;
+            background: #f8f9fa;
+        }
+        .game-meta-lines {
+            font-size: 12.5px;
+            line-height: 1.55;
+            color: #343a40;
+        }
+        .game-meta-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 4px;
+        }
+        .game-meta-sub {
+            color: var(--text-sub);
+            font-size: 12px;
+        }
+        .game-meta-score {
+            margin-top: 4px;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 12.5px;
+        }
+
+        /* 선발승 기록 요약 카드 */
         .summary-box {
             background: #ffffff;
             padding: 16px 18px;
@@ -328,6 +371,16 @@
             font-size: 11px;
             margin-top: 6px;
         }
+
+        @media (max-width: 480px) {
+            .game-meta-card {
+                align-items: flex-start;
+            }
+            .starter-photo {
+                width: 74px;
+                height: 74px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -352,13 +405,26 @@
 
         <section>
             <h2>🇰🇷 국가대표 선발승 기록</h2>
+
+            <!-- 선발 투수 사진 + 경기 개요 텍스트 -->
+            <div class="game-meta-card">
+                <img id="starter-photo" src="https://roarunto92.github.io/roun/260909_2nd.jpg?w=150" alt="선발 투수 이로운" class="starter-photo">
+                <div class="game-meta-lines">
+                    <div class="game-meta-title">한국 vs 차이니즈 타이베이 (2026 APBC)</div>
+                    <div class="game-meta-sub">2026년 11월 14일(토) 19:00 · 도쿄돔[cite: 6]</div>
+                    <div class="game-meta-sub">경기 시간: 2시간 54분 · 관중: 10,772명[cite: 6]</div>
+                    <div class="game-meta-score">최종 스코어: 한국 6 - 4 차이니즈 타이베이 (승리투수: 이로운)[cite: 6]</div>
+                </div>
+            </div>
+
+            <!-- 선발승 투수 요약 스탯 카드 -->
             <div class="summary-box">
                 <div class="summary-head">
                     <div>
                         <span class="badge-win">선발승</span>
-                        <strong style="font-size: 14px;">2026 APBC vs 차이니즈 타이베이</strong>
+                        <strong style="font-size: 14px;">이로운 투수 기록</strong>
                     </div>
-                    <span style="font-size: 12px; color: #6c757d;">2026.11.14 · 도쿄돔 (한국 6 - 4 승)</span>
+                    <span style="font-size: 12px; color: #6c757d;">2026.11.14 · 도쿄돔[cite: 6]</span>
                 </div>
                 <div class="table-wrap">
                     <table class="stat-table">
@@ -429,8 +495,16 @@
     </div>
 
     <script>
+        // ⚠️ 선발 투수 사진 경로/URL을 원하시는 사진으로 변경하세요.
+        const STARTER_PHOTO_URL = 'https://roarunto92.github.io/roun/korea.jpg?w=150';
+
         // ⚠️ 구글 시트 '국대' 탭을 '웹에 게시(CSV)'한 URL을 넣으세요.
         const NATIONAL_LOG_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRVyUH61TK7HzrgNdXTkz3Dg2g1mVtI7tlx-SLeVluzfOR_jxbBpSF4zIvPDpOuV-7GQAdb86kPdrhr/pub?gid=1081663371&single=true&output=csv';
+
+        if (STARTER_PHOTO_URL) {
+            const photoEl = document.getElementById('starter-photo');
+            if (photoEl) photoEl.src = STARTER_PHOTO_URL;
+        }
 
         function parseCSV(text) {
             const lines = [];
@@ -543,7 +617,6 @@
                 const seenUrls = new Set();
 
                 rows.forEach(cols => {
-                    // J열(인덱스 9): 영상제목, K열(인덱스 10): 영상URL
                     const vidTitle = cols[9] ? cols[9].trim() : '';
                     const vidUrl = cleanUrl(cols[10]);
                     if (vidUrl && !seenUrls.has(vidUrl)) {
@@ -551,7 +624,6 @@
                         videos.push({ title: vidTitle, url: vidUrl });
                     }
 
-                    // A~I열: 이닝별 투구 로그
                     const inning = cols[0] ? cols[0].trim() : '';
                     const batter = cols[2] ? cols[2].trim() : '';
                     const result = cols[5] ? cols[5].trim() : '';
