@@ -285,8 +285,12 @@
         .count-dot.strike { background: #fab005; }
         .count-dot.out { background: #e03131; }
 
-        .result-hit { color: #e8590c; font-weight: 700; }
-        .result-hr { color: #c92a2a; font-weight: 700; }
+        /* 안타/홈런 결과도 기본 텍스트와 동일한 컬러 유지 */
+        .result-hit,
+        .result-hr {
+            color: var(--text-main);
+            font-weight: 400;
+        }
 
         .batter-right {
             display: flex;
@@ -410,7 +414,7 @@
 
         <div class="header">
             <h1>LEE ROUN's Archive</h1>
-            <div class="subtitle">APBC 2026 | source. japan-baseball.jp</div>
+            <div class="subtitle">이로운 선수 아카이브 · 국가대표 기록</div>
 
             <nav class="nav-menu">
                 <a href="index.html" class="nav-btn">HOME</a>
@@ -423,16 +427,16 @@
         </div>
 
         <section>
-         <h2>🇰🇷 APBC 2026 기록</h2>
+            <h2>🇰🇷 국가대표 선발승 기록</h2>
 
             <div class="game-meta-card">
                 <img id="starter-photo" src="https://roarunto92.github.io/roun/260909_2nd.jpg?w=150" alt="선발 투수 이로운" class="starter-photo">
                 <div class="game-meta-lines">
-                    <div class="game-meta-title">한국 vs 차이니즈 타이베이 (2026 APBC)</div>
+                    <div class="game-meta-title">한국 vs 대만 (2026 APBC)</div>
                     <div class="game-meta-sub">2026년 11월 14일(토) 19:00 · 도쿄돔</div>
                     <div class="game-meta-sub">경기 시간: 2시간 54분 · 관중: 10,772명</div>
-                    <div class="game-meta-sub">선발 투수:이로운(대한민국) vs 쉬샹성(차이니즈 타이베이)</div>
-                    <div class="game-meta-score">최종 스코어:대한민국 6 - 4 차이니즈 타이베이</div>
+                    <div class="game-meta-starter">선발투수 : 이로운(대한민국) vs 쉬샹성(대만)</div>
+                    <div class="game-meta-score">최종 스코어: 한국 6 - 4 대만</div>
                     <div class="wp-row">
                         <span class="wp-pill">승리투수 : 이로운</span>
                     </div>
@@ -443,7 +447,7 @@
                 <div class="summary-head">
                     <div>
                         <span class="badge-win">선발승</span>
-                        <strong style="font-size: 14px;">이로운 투구 기록</strong>
+                        <strong style="font-size: 14px;">이로운 투수 기록</strong>
                     </div>
                     <span style="font-size: 12px; color: #6c757d;">2026.11.14 · 도쿄돔</span>
                 </div>
@@ -485,7 +489,7 @@
         </section>
 
         <section>
-            <h2>⚾ 이닝별 투구 내용</h2>
+            <h2>⚾ 이닝별 투구 경과</h2>
             <div id="national-pbp-container">
                 <div class="empty-text">데이터를 불러오는 중...</div>
             </div>
@@ -707,7 +711,7 @@
                     return `
                         <div class="inning-card">
                             <div class="inning-header">
-                                <span>${escapeHtml(inning)} · 차이니즈 타이베이 공격</span>
+                                <span>${escapeHtml(inning)} · 대만 공격</span>
                                 <span style="color:#6c757d; font-weight:600; font-size:12px;">투수 이로운</span>
                             </div>
                             ${rowsHtml}
